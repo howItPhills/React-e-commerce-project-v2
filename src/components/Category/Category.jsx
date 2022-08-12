@@ -1,6 +1,7 @@
 import React from "react";
-import "./category.scss";
 import { useNavigate } from "react-router-dom";
+
+import "./category.scss";
 
 const Category = ({ title, imageUrl }) => {
   const navigate = useNavigate();

@@ -109,6 +109,13 @@ export const CartProvider = ({ children }) => {
     initialState
   );
 
+  // React-context version of this function
+
+  // const addNewItemToCart = (product) => {
+  //   setCartItem(addCartItem(cartItems, product))
+  // }
+
+  // Redux version of this function
   const addNewItemToCart = (product) => {
     dispatch({
       type: CART_ACTION_TYPES.ADD_ITEM_TO_CART,

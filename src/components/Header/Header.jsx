@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
 
-import Logo from "../../assets/crown.svg";
+import Logo from "../../assets/laurel-crown_39050.ico";
 import CartIcon from "./../Cart-icon/CartIcon";
 
 import { UserContext } from "./../../contexts/UserContext";
