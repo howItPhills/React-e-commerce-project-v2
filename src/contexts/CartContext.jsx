@@ -1,5 +1,6 @@
-import React, { useEffect, useReducer } from "react";
+import React, { useReducer } from "react";
 import { createContext } from "react";
+import { createAction } from "../utils/createAction";
 
 const addCartItem = (cartItems, newProduct) => {
   const existingItem = cartItems.find((item) => item.id === newProduct.id);
@@ -44,15 +45,11 @@ export const CartContext = createContext({
 });
 
 const CART_ACTION_TYPES = {
-  SET_IS_HIDDEN: "SET_IS_HIDDEN",
-  SET_ITEM_COUNT: "SET_ITEM_COUNT",
-  SET_TOTAL_PRICE: "SET_TOTAL_PRICE",
-  ADD_ITEM_TO_CART: "ADD_ITEM_TO_CART",
-  REMOVE_ITEM_FROM_CART: "REMOVE_ITEM_FROM_CART",
-  DECREASE_CART_ITEM_QUANTITY: "DECREASE_CART_ITEM_QUANTITY",
+  SET_CART_ITEMS: "SET_CART_ITEMS",
+  TOGGLE_IS_HIDDEN: "TOGGLE_IS_HIDDEN",
 };
 
-const initialState = {
+const INITIAL_STATE = {
   cartItems: [],
   isHidden: true,
   itemCount: 0,
@@ -63,35 +60,15 @@ const cartReducer = (state, action) => {
   const { type, payload } = action;
 
   switch (type) {
-    case CART_ACTION_TYPES.SET_IS_HIDDEN:
+    case CART_ACTION_TYPES.TOGGLE_IS_HIDDEN:
       return {
         ...state,
         isHidden: !state.isHidden,
       };
-    case CART_ACTION_TYPES.ADD_ITEM_TO_CART:
+    case CART_ACTION_TYPES.SET_CART_ITEMS:
       return {
         ...state,
-        cartItems: addCartItem(state.cartItems, payload),
-      };
-    case CART_ACTION_TYPES.REMOVE_ITEM_FROM_CART:
-      return {
-        ...state,
-        cartItems: removeCartItem(state.cartItems, payload),
-      };
-    case CART_ACTION_TYPES.DECREASE_CART_ITEM_QUANTITY:
-      return {
-        ...state,
-        cartItems: decreaseQuantity(state.cartItems, payload),
-      };
-    case CART_ACTION_TYPES.SET_ITEM_COUNT:
-      return {
-        ...state,
-        itemCount: payload,
-      };
-    case CART_ACTION_TYPES.SET_TOTAL_PRICE:
-      return {
-        ...state,
-        totalPrice: payload,
+        ...payload,
       };
     default:
       throw new Error(`Unhandled type ${type} in Cart reudcer`);
@@ -99,14 +76,9 @@ const cartReducer = (state, action) => {
 };
 
 export const CartProvider = ({ children }) => {
-  // const [isHidden, setIsHidden] = useState(true);
-  // const [cartItems, setCartItems] = useState([]);
-  // const [itemCount, setItemCount] = useState(0);
-  // const [totalPrice, setTotalPrice] = useState(0); // context with usestate version
-
   const [{ cartItems, isHidden, totalPrice, itemCount }, dispatch] = useReducer(
     cartReducer,
-    initialState
+    INITIAL_STATE
   );
 
   // React-context version of this function
@@ -117,40 +89,38 @@ export const CartProvider = ({ children }) => {
 
   // Redux version of this function
   const addNewItemToCart = (product) => {
-    dispatch({
-      type: CART_ACTION_TYPES.ADD_ITEM_TO_CART,
-      payload: product,
-    });
+    setCartItems(addCartItem(cartItems, product));
   };
 
   const removeItemFromCart = (removedItemId) => {
-    dispatch({
-      type: CART_ACTION_TYPES.REMOVE_ITEM_FROM_CART,
-      payload: removedItemId,
-    });
+    setCartItems(removeCartItem(cartItems, removedItemId));
   };
 
   const decreaseCartItemQuantity = (product) => {
-    dispatch({
-      type: CART_ACTION_TYPES.DECREASE_CART_ITEM_QUANTITY,
-      payload: product,
-    });
+    setCartItems(decreaseQuantity(cartItems, product));
   };
 
-  const setIsHidden = () => dispatch({ type: CART_ACTION_TYPES.SET_IS_HIDDEN });
+  const setIsHidden = () =>
+    dispatch(createAction(CART_ACTION_TYPES.TOGGLE_IS_HIDDEN, null));
 
-  useEffect(() => {
-    const items = cartItems.reduce((acc, curr) => acc + curr.quantity, 0);
-    dispatch({ type: CART_ACTION_TYPES.SET_ITEM_COUNT, payload: items });
-  }, [cartItems]);
-
-  useEffect(() => {
-    const total = cartItems.reduce(
+  //Helper-function for reducer
+  const setCartItems = (newCartItems) => {
+    const newItemCount = newCartItems.reduce(
+      (acc, curr) => acc + curr.quantity,
+      0
+    );
+    const newTotalPrice = newCartItems.reduce(
       (acc, curr) => acc + curr.quantity * curr.price,
       0
     );
-    dispatch({ type: CART_ACTION_TYPES.SET_TOTAL_PRICE, payload: total });
-  }, [cartItems]);
+    dispatch(
+      createAction(CART_ACTION_TYPES.SET_CART_ITEMS, {
+        cartItems: newCartItems,
+        itemCount: newItemCount,
+        totalPrice: newTotalPrice,
+      })
+    );
+  };
 
   const value = {
     isHidden,

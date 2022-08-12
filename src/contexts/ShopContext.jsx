@@ -1,7 +1,7 @@
 import React, { useEffect, useReducer } from "react";
 import { createContext } from "react";
-import { useState } from "react";
 import { getCategoriesAndDocuments } from "../utils/firebase";
+import { createAction } from "./../utils/createAction";
 
 export const ShopContext = createContext({
   productsData: {},
@@ -30,17 +30,12 @@ const shopReducer = (state, action) => {
 };
 
 export const ShopProvider = ({ children }) => {
-  // const [productsData, setProductsData] = useState({});
   const [{ productsData }, dispatch] = useReducer(shopReducer, initialState);
 
   useEffect(() => {
     const getCategoriesMap = async () => {
       const categoryMap = await getCategoriesAndDocuments();
-      // setProductsData(categoryMap); // Context version
-      dispatch({
-        type: SHOP_ACTION_TYPES.SET_PRODUCTS_DATA,
-        payload: categoryMap,
-      });
+      dispatch(createAction(SHOP_ACTION_TYPES.SET_PRODUCTS_DATA, categoryMap));
     };
 
     getCategoriesMap();
