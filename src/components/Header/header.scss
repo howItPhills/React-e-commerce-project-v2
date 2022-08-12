@@ -1,0 +1,41 @@
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 25px;
+  box-shadow: 0px 0px 10px 1px rgb(196, 168, 168);
+  background: rgb(57, 54, 54);
+}
+
+.logo-container {
+  width: 60px;
+  height: 60px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.header-navigation {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.header-navigation a {
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #fff;
+  font-size: 18px;
+}
+
+.app-name-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  & span {
+    color: #fff;
+    font-size: 18px;
+  }
+}

@@ -1,0 +1,30 @@
+.checkout-item-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #000;
+  padding: 10px 0px;
+  * {
+    width: 100%;
+  }
+}
+
+.checkout-item-name {
+  display: flex;
+  align-items: center;
+  .checkout-image-container {
+    padding-left: 5px;
+    img {
+      height: 170px;
+    }
+  }
+}
+
+.checkout-quantity span:not(:last-child) {
+  margin-right: 5px;
+}
+
+.checkout-click {
+  cursor: pointer;
+  user-select: none;
+}

@@ -1,0 +1,31 @@
+.cart-dropdown-container {
+  position: absolute;
+  width: 252px;
+  height: 340px;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  border: 1px solid rgb(85, 78, 78);
+  background-color: rgb(242, 236, 236);
+  top: 65px;
+  right: 50px;
+  z-index: 5;
+  border-radius: 10px;
+
+  .cart-items {
+    height: 240px;
+    display: flex;
+    flex-direction: column;
+    overflow: scroll;
+    overflow-x: hidden;
+    margin-bottom: 20px;
+  }
+}
+.cart-dropdown-empty {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  color: rgb(61, 59, 55);
+}

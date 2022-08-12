@@ -1,0 +1,9 @@
+.sign-in-container {
+  h2 {
+    margin: 10px 0;
+  }
+  & .buttons-group {
+    display: flex;
+    gap: 10px;
+  }
+}

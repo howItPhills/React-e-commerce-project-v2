@@ -1,0 +1,28 @@
+.checkout-container {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  margin: 0 auto;
+  padding: 20px 0px;
+  text-align: center;
+}
+
+.checkout-heading-container {
+  display: flex;
+  padding: 5px 0px;
+  justify-content: space-between;
+  border-bottom: 1px solid #000;
+  margin-bottom: 20px;
+  h3 {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+.checkout-total-price {
+  width: 100%;
+  margin-top: 20px;
+  font-weight: bold;
+  font-size: 19px;
+  text-align: right;
+}
