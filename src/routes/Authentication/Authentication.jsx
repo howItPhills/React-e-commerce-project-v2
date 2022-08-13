@@ -3,11 +3,12 @@ import SignUpForm from "../../components/Sign-up-form/SignUpForm";
 import SignInForm from "../../components/Sign-in-form/SignInForm";
 
 import "./sign-in-page.scss";
-import { UserContext } from "./../../contexts/UserContext";
 import { Navigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { selectCurrentUser } from "./../../redux/user/user.selectors";
 
 const Authentication = () => {
-  const { currentUser } = useContext(UserContext);
+  const currentUser = useSelector(selectCurrentUser);
 
   return currentUser ? (
     <Navigate to="/" replace />

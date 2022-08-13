@@ -1,9 +1,7 @@
+import { SHOP_ACTION_TYPES } from "./shop.types";
+
 const INITIAL_STATE = {
   productsData: {},
-};
-
-const SHOP_ACTION_TYPES = {
-  SET_PRODUCTS_DATA: "SET_PRODUCTS_DATA",
 };
 
 export const shopReducer = (state = INITIAL_STATE, action) => {

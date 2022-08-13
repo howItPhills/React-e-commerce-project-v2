@@ -3,8 +3,9 @@ import { createUserAuthWithEmailAndPassword } from "../../utils/firebase";
 import InputField from "../InputField/InputField";
 import { createUserDocument } from "../../utils/firebase";
 
-import "./sign-up-form.scss";
 import CustomButton from "../Custom-button/CustomButton";
+
+import "./sign-up-form.scss";
 
 const defaultFormFields = {
   displayName: "",

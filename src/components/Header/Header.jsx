@@ -4,16 +4,18 @@ import { Link, NavLink } from "react-router-dom";
 import Logo from "../../assets/laurel-crown_39050.ico";
 import CartIcon from "./../Cart-icon/CartIcon";
 
-import { UserContext } from "./../../contexts/UserContext";
+import { useSelector } from "react-redux";
 import { useContext } from "react";
 import { signOutUser } from "../../utils/firebase";
 import CartDropdown from "./../Cart-dropdown/CartDropdown";
 import { CartContext } from "../../contexts/CartContext";
 
 import "./header.scss";
+import { selectCurrentUser } from "../../redux/user/user.selectors";
 
 const Header = () => {
-  const { currentUser } = useContext(UserContext);
+  const currentUser = useSelector(selectCurrentUser);
+  // const { currentUser } = useContext(UserContext);
   const { isHidden, setIsHidden } = useContext(CartContext);
 
   const onActiveLink = (isActive) => ({

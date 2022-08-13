@@ -1,14 +1,15 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { ShopContext } from "./../../contexts/ShopContext";
 import ProductCard from "./../../components/ProductCard/ProductCard";
 
 import "./category-page.scss";
 import Preloader from "../../components/Preloader/Preloader";
+import { useSelector } from "react-redux";
+import { selectProductsData } from "./../../redux/shop/shop.selectors";
 
 const CategoryPage = () => {
   const { categoryTitle } = useParams();
-  const { productsData } = useContext(ShopContext);
+  const productsData = useSelector(selectProductsData);
   const [products, setProducts] = useState([]);
 
   useEffect(() => {

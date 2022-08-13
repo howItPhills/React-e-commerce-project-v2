@@ -27,6 +27,7 @@ const App = () => {
 
     return unsubscribe;
   }, []);
+
   return (
     <div className="app">
       <Header />
